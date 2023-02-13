@@ -51,7 +51,7 @@ public class RandomQueue<Item> {
             }
         }
         for (int i = 1; i < 5; i++) {
-            System.out.println("Hand " + i + ":");
+            System.out.println("Hand " + i + ":")
             for (int j = 0; j < 2; j++) {
                 System.out.println(CardDeck.dequeue().toString());
             }
