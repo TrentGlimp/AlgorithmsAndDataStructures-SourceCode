@@ -36,7 +36,7 @@ public class RandomQueue<Item> {
         ItemArray[RandomIndex] = ItemArray[ItemCount-1]; // moves the last item in the array to the chosen index
         ItemArray[ItemCount-1] = Temp; // moves the value stored in the placeholder variable to the last index in the array
         ItemCount--; // shrinks the accessible part of the array so the last number can no longer be selected
-        return ItemArra[ItemCount]; // return the value that is no out of range of access of the array
+        return ItemArray[ItemCount]; // return the value that is no out of range of access of the array
     }
 
 
