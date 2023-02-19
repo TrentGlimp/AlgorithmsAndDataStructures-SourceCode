@@ -3,7 +3,7 @@ package DoublyLinkedList;
 public class DoublyLinkedList<Item> {
     private Node<Item> head;
     private Node<Item> tail;
-    private int itemCount;
+    private int itemCoun;
 
     private static class Node<Item> {
         private Item item;
