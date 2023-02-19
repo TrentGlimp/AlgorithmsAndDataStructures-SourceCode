@@ -11,9 +11,35 @@ public class DoublyLinkedList<Item> {
         private DoublyLinkedList.Node<Item> previous;
     }
 
+
+    public Item get(Integer index) {
+        Node currentNode = head;
+        int counter = 0;
+        while(currentNode.next != null) {
+            if (counter == index) {
+                return (Item) currentNode.item;
+            }
+            currentNode = currentNode.next;
+            counter++;
+        }
+        return null;
+    }
+
+    public void set(Integer index, Item newItem) {
+        Node currentNode = head;
+        int counter = 0;
+        while(currentNode.next != null) {
+            if (counter == index) {
+                currentNode.item = newItem;
+            }
+            currentNode = currentNode.next;
+            counter++;
+        }
+    }
     public void insertAtHead(Item newItem) {
         Node newFirst = new Node<Item>();
         newFirst.item = newItem;
+        itemCount++;
         if (head == null) {
             head = newFirst;
             tail = newFirst;
@@ -29,6 +55,7 @@ public class DoublyLinkedList<Item> {
     public void insertAtTail(Item newItem) {
         Node newLast = new Node<Item>();
         newLast.item = newItem;
+        itemCount++;
         if (tail == null) {
             tail = newLast;
             head = newLast;
@@ -43,19 +70,20 @@ public class DoublyLinkedList<Item> {
     }
 
     public void insertBeforeNthNode(Integer index, Item newItem) {
-        Node current = head;
+        Node currentNode = head;
         int counter = 0;
+        itemCount++;
 
-        while (current != null) {
+        while (currentNode != null) {
             if (counter == index) {
                 Node newNode = new Node<Item>();
                 newNode.item = newItem;
 
-                newNode.previous = current.previous;
-                current.previous = newNode;
-                newNode.next = current;
+                newNode.previous = currentNode.previous;
+                currentNode.previous = newNode;
+                newNode.next = currentNode;
 
-                if (head == current) {
+                if (head == currentNode) {
                     head = newNode;
                 } else {
                     newNode.previous.next = newNode;
@@ -63,24 +91,25 @@ public class DoublyLinkedList<Item> {
                 return;
             }
             counter++;
-            current = current.next;
+            currentNode = currentNode.next;
         }
     }
 
     public void insertAfterNthNode(Integer index, Item newItem) {
-        Node current = head;
+        Node currentNode = head;
         int counter = 0;
+        itemCount++;
 
-        while (current != null) {
+        while (currentNode != null) {
             if (counter == index) {
                 Node newNode = new Node<Item>();
                 newNode.item = newItem;
 
-                newNode.next = current.next;
-                current.next = newNode;
-                newNode.previous = current;
+                newNode.next = currentNode.next;
+                currentNode.next = newNode;
+                newNode.previous = currentNode;
 
-                if (tail == current) {
+                if (tail == currentNode) {
                     tail = newNode;
                 } else {
                     newNode.next.previous = newNode;
@@ -88,7 +117,7 @@ public class DoublyLinkedList<Item> {
                 return;
             }
             counter++;
-            current = current.next;
+            currentNode = currentNode.next;
         }
     }
 
@@ -100,6 +129,7 @@ public class DoublyLinkedList<Item> {
             head.next = null;
             newFirst.previous = null;
             head = newFirst;
+            itemCount--;
         }
     }
 
@@ -109,15 +139,18 @@ public class DoublyLinkedList<Item> {
         } else if (tail.previous == null) {
             tail = null;
             head = null;
+            itemCount--;
         } else {
             tail = tail.previous;
             tail.next = null;
+            itemCount--;
         }
     }
 
     public void removeNthNode(Integer index) {
         Node current = head;
         int counter = 0;
+        itemCount--;
 
         while (current != null) {
             if (counter == index) {
@@ -149,7 +182,7 @@ public class DoublyLinkedList<Item> {
         testList.insertAtHead("March");
         testList.insertAtHead("January");
         testList.insertAtTail("Tuesday");
-        testList.insertBeforeNthNode(4, "September");
+        testList.insertBeforeNthNode(4, "Septhember");
         testList.insertAfterNthNode(2, "June");
         testList.insertBeforeNthNode(3, "May");
         testList.insertAtHead("Sunday");
@@ -160,15 +193,14 @@ public class DoublyLinkedList<Item> {
         testList.removeHead();
         testList.removeTail();
         testList.removeNthNode(3);
+        testList.set(8, "September");
 
 
         Node currentNode = testList.head;
 
-        while (currentNode.next != null) {
-
-            System.out.println(currentNode.item);
-            currentNode = currentNode.next;
+        for (int i = 0; i < testList.itemCount; i++) {
+            System.out.println(testList.get(i));
         }
-        System.out.println(currentNode.item);
+        System.out.println(testList.get(11));
     }
 }
