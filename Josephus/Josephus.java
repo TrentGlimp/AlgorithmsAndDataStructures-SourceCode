@@ -4,32 +4,35 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Josephus {
-    public static void Josephus(int M, int N) {
-        int[] intArray = new int[N];
-        for (int i = 0; i < N; i++) {
-            intArray[i] = i + 1;
-        }
-        int arrayIndex = 0;
-        Queue<Integer> finalQueue = new LinkedList<Integer>();
-        while (intArray.length != 0) {
-            arrayIndex = (arrayIndex + M - 1) % intArray.length;
-            int killed = intArray[arrayIndex];
-            int[] newIntArray = new int[intArray.length - 1];
-            for (int i = 0, j = 0; i < intArray.length; i++) {
-                if (intArray[i] != killed) {
-                    newIntArray[j++] = intArray[i];
-                }
-            }
-            intArray = newIntArray;
-            finalQueue.offer(killed);
-        }
-        while (!finalQueue.isEmpty()) {
-            System.out.print(finalQueue.poll() + " ");
-        }
-    }
-
     public static void main(String[] args) {
-        Josephus(3, 7);
-    }
+        int M = Integer.parseInt(args[0]);
+        int N = Integer.parseInt(args[1]);
 
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < N; i++) {
+            queue.add(i);
+        }
+
+        int count = 0;
+        System.out.print("Killed in order: ");
+        while (queue.size() > 1) {
+            int killed = queue.remove();
+            count++;
+            if (count % M == 0) {
+                System.out.print(killed + " ");
+            } else {
+                queue.add(killed);
+            }
+        }
+
+        System.out.println("\nSurviving position: " + queue.remove());
+    }
 }
+
+
+// Sample CLI input/output
+
+// java Josephus.java 4 7
+
+// Killed in order: 3 0 5 4 6 2
+// Surviving position: 1
