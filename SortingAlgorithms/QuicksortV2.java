@@ -1,24 +1,27 @@
 package SortingAlgorithms;
 
-public class QuickSort {
+public class QuicksortV2 {
 
     public static void sort(Comparable[] a) {
-        quickSort(a, 0, a.length - 1);
+        sort(a, 0, a.length - 1);
     }
 
-    private static void quickSort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) {
+    private static void sort(Comparable[] a, int lo, int hi) {
+        if (hi <= lo + 10) {
+             InsertionSort.sort(a, lo, hi);
             return;
         }
         int j = partition(a, lo, hi);
-        quickSort(a, lo, j - 1);
-        quickSort(a, j + 1, hi);
+        sort(a, lo, j - 1);
+        sort(a, j + 1, hi);
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
+        int pivotIndex = choosePivot(a, lo, hi);
+        exch(a, pivotIndex, lo); // move pivot to beginning
+        Comparable v = a[lo];
         int i = lo;
         int j = hi + 1;
-        Comparable v = a[lo];
         while (true) {
             while (less(a[++i], v)) {
                 if (i == hi) {
@@ -37,6 +40,20 @@ public class QuickSort {
         }
         exch(a, lo, j);
         return j;
+    }
+
+    private static int choosePivot(Comparable[] a, int lo, int hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (less(a[mid], a[lo])) {
+            exch(a, lo, mid);
+        }
+        if (less(a[hi], a[lo])) {
+            exch(a, lo, hi);
+        }
+        if (less(a[hi], a[mid])) {
+            exch(a, mid, hi);
+        }
+        return mid;
     }
 
     private static boolean less(Comparable v, Comparable w) {

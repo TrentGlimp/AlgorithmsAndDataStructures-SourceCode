@@ -16,7 +16,7 @@ public class SortsDoublingTest {
             array[i] = StdRandom.uniformInt(-MAXIMUM_INTEGER, MAXIMUM_INTEGER);
         }
         Stopwatch timer = new Stopwatch();
-        QuickSort.sort(array);
+        QuicksortV1.sort(array);
         return timer.elapsedTime();
     }
 
